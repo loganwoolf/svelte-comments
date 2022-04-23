@@ -17,8 +17,12 @@ dist-ssr
 !.vscode/extensions.json
 .idea
 .DS_Store
-*.suo
+.prettierignore
+*.fig
 *.ntvs*
 *.njsproj
+*.sketch
 *.sln
+*.suo
 *.sw?
+*.xd
