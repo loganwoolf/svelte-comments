@@ -1,0 +1,7 @@
+{
+  "arrowParens": "always",
+  "singleQuote": true,
+  "svelteSortOrder": "options-scripts-markup-styles",
+  "semi": false,
+  "printWidth": 80
+}
