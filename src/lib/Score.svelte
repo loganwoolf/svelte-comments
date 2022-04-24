@@ -9,15 +9,15 @@
 </script>
 
 <div class="score">
-  <button class="score-up" on:click={upVote} />
+  <button class="icon score-up" on:click={upVote} />
   <p>{score}</p>
-  <button class="score-down" on:click={downVote} />
+  <button class="icon score-down" on:click={downVote} />
 </div>
 
 <style>
   div {
     display: grid;
-    grid-template-columns: repeat(3, 2rem);
+    grid-template-columns: 2.5rem 1rem 2.5rem;
     grid-auto-rows: 2.5rem;
     justify-items: center;
     align-items: center;
@@ -29,16 +29,23 @@
     width: 100%;
     height: 100%;
     border: unset;
-    background-color: unset;
-    background-repeat: no-repeat;
-    background-position: center;
     cursor: pointer;
   }
   .score-up {
-    background-image: url(/images/icon-plus.svg);
+    mask: url(/images/icon-plus.svg);
   }
   .score-down {
-    background-image: url(/images/icon-minus.svg);
+    mask: url(/images/icon-minus.svg);
+  }
+  .icon {
+    display: inline-block;
+    background-color: var(--pri-light);
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-size: 25%;
+  }
+  .icon:hover {
+    background-color: var(--pri);
   }
   p {
     color: var(--pri);
