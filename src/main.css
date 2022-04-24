@@ -18,3 +18,9 @@
   font-size: 16px;
   font-family: 'Rubik', sans-serif;
 }
+
+body {
+  min-width: 375px;
+  background-color: var(--light);
+  margin: 0;
+}
