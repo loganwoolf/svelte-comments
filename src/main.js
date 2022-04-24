@@ -1,4 +1,4 @@
-import "./main.css" // global CSS
+import './main.css' // global CSS
 import App from './App.svelte'
 
 const app = new App({

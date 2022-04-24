@@ -1,4 +1,6 @@
 <script>
+  import Score from './lib/Score.svelte'
+
   export let id
   export let content
   export let createdAt
@@ -22,7 +24,7 @@
     {content}
   </p>
   <footer>
-    <p>+ {score} -</p>
+    <Score {score} />
     <button>Reply</button>
   </footer>
 </article>
