@@ -20,19 +20,21 @@
     {/if}
     <p>{createdAt}</p>
   </header>
+
   <p>
     {#if replyingTo}
       <span class="handle">@{replyingTo}</span>
     {/if}
     {content}
   </p>
+
   <footer>
     <Score {score} />
     {#if currentUser === user.username}
-      <button class="delete">Delete</button>
-      <button class="edit">Edit</button>
+      <button class="delete"><span>Delete</span></button>
+      <button class="edit"><span>Edit</span></button>
     {:else}
-      <button class="reply">Reply</button>
+      <button class="reply"><span>Reply</span></button>
     {/if}
   </footer>
 </article>
@@ -76,23 +78,47 @@
   footer {
     display: flex;
     align-items: center;
+    gap: 0.5rem;
   }
   button {
+    display: inline-flex;
     background-color: inherit;
+    gap: 0.4rem;
+    align-items: center;
     border: unset;
     cursor: pointer;
     height: 1.5rem;
+    font-size: 1rem;
     font-weight: 700;
+  }
+  .edit,
+  .reply {
     color: var(--pri);
   }
+  .delete {
+    color: var(--loud);
+  }
   button::before {
+    --size: 1.1rem;
     display: inline-flex;
     align-items: center;
     content: '';
-    background-image: url(/images/icon-reply.svg);
     background-repeat: no-repeat;
-    background-size: 0.8rem;
-    height: 1rem;
-    width: 1.2rem;
+    background-size: calc(var(--size) * 0.8);
+    background-position: center;
+    height: var(--size);
+    width: var(--size);
+  }
+  .delete::before {
+    background-image: url(/images/icon-delete.svg);
+  }
+  .edit::before {
+    background-image: url(/images/icon-edit.svg);
+  }
+  .reply::before {
+    background-image: url(/images/icon-reply.svg);
+  }
+  button:hover {
+    opacity: 0.4;
   }
 </style>
