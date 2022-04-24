@@ -8,13 +8,16 @@
   export let user
   export let replyingTo
   export let isReply
-  $: console.log(replyingTo)
+  export let currentUser
 </script>
 
 <article data-comment-id={id} class={isReply && 'reply'}>
   <header>
     <img src={user.image.png} alt="" />
     <h2>{user.username}</h2>
+    {#if currentUser === user.username}
+      <p class="you">you</p>
+    {/if}
     <p>{createdAt}</p>
   </header>
   <p>
@@ -25,7 +28,12 @@
   </p>
   <footer>
     <Score {score} />
-    <button>Reply</button>
+    {#if currentUser === user.username}
+      <button class="delete">Delete</button>
+      <button class="edit">Edit</button>
+    {:else}
+      <button class="reply">Reply</button>
+    {/if}
   </footer>
 </article>
 

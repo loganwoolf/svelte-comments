@@ -17,11 +17,11 @@
   <p>Please wait for some comments</p>
 {:else}
   {#each comments as comment}
-    <Comment {...comment} />
+    <Comment {...comment} currentUser={currentUser.username} />
     {#if comment.replies.length}
       <div class="replies">
         {#each comment.replies as reply}
-          <Comment {...reply} isReply />
+          <Comment {...reply} currentUser={currentUser.username} isReply />
         {/each}
       </div>
     {/if}
