@@ -31,6 +31,6 @@
 <style>
   .replies {
     margin-left: 1rem;
-    border-left: 0.15rem solid var(--less-light);
+    border-left: 0.15rem solid var(--light);
   }
 </style>

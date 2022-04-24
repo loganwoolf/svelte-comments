@@ -11,7 +11,6 @@
   /* Neutral */
   --pri-dark: hsl(212, 24%, 26%);
   --pri-greyed: hsl(211, 10%, 45%);
-  --less-light: hsl(223, 19%, 88%);
   --light: hsl(223, 19%, 93%);
   --lighter: hsl(228, 33%, 97%);
   --white: hsl(0, 0%, 100%);
@@ -25,6 +24,6 @@
 
 body {
   min-width: 375px;
-  background-color: var(--light);
+  background-color: var(--lighter);
   margin: 0;
 }

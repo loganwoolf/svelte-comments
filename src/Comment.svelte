@@ -34,7 +34,7 @@
     gap: 1rem;
     line-height: 1.5;
     padding: 1rem;
-    background-color: var(--lighter);
+    background-color: var(--white);
     margin: 1rem 1rem;
     border-radius: 0.5rem;
   }
@@ -56,7 +56,7 @@
     font-weight: 500;
   }
   p {
-    color: var(--pri-greyed)
+    color: var(--pri-greyed);
   }
   .handle {
     color: var(--pri);
