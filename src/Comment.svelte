@@ -58,6 +58,15 @@
   header img {
     height: 32px;
   }
+  .you {
+    background-color: var(--pri);
+    color: var(--white);
+    font-weight: 500;
+    font-size: 0.8rem;
+    margin-left: -0.5rem;
+    border-radius: 0.2rem;
+    padding: 0rem 0.5rem 0.1rem;
+  }
   h2,
   p {
     font-size: 1rem;
