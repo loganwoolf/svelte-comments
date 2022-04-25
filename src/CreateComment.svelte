@@ -3,14 +3,18 @@
   export let addNewComment
 
   let text = ''
-
 </script>
 
 <div>
   <textarea bind:value={text} placeholder="Add a comment..." />
   <footer>
     <img src={currentUser.image.png} alt="" />
-    <button on:click={() => addNewComment(text)}>Send</button>
+    <button
+      on:click={() => {
+        addNewComment(text)
+        text = ''
+      }}>Send</button
+    >
   </footer>
 </div>
 
