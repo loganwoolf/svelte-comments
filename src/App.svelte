@@ -1,8 +1,10 @@
 <script>
   import Comment from './Comment.svelte'
+  import CreateComment from './CreateComment.svelte'
 
   let comments
   let currentUser
+
   fetch('/data.json')
     .then((response) => response.json())
     .then((result) => {
@@ -10,7 +12,18 @@
       currentUser = result.currentUser
     })
     .catch((err) => console.log('Error: ', err.message))
-  $: console.log({ comments, currentUser })
+
+  const addNewComment = (text) => {
+    const newComment = {
+      id: Math.random().toString(16).slice(2, 8),
+      content: text,
+      createdAt: new Date(),
+      replies: [],
+      score: 0,
+      user: currentUser,
+    }
+    comments = [...comments, newComment]
+  }
 </script>
 
 {#if !comments}
@@ -26,6 +39,8 @@
       </div>
     {/if}
   {/each}
+
+  <CreateComment {currentUser} {addNewComment} />
 {/if}
 
 <style>
