@@ -1,5 +1,6 @@
 <script>
   import Comment from './Comment.svelte'
+  import CreateComment from './CreateComment.svelte'
 
   let comments
   let currentUser
@@ -26,6 +27,9 @@
       </div>
     {/if}
   {/each}
+
+  <CreateComment {...currentUser} />
+  
 {/if}
 
 <style>
