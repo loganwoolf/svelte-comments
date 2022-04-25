@@ -1,28 +1,16 @@
 <script>
   export let currentUser
-  export let comments
-  $: console.log(comments )
+  export let addNewComment
+
   let text = ''
 
-  const addNewComment = () => {
-    console.log("I ran!" )
-    const newComment = {
-      id: Math.random().toString(16).slice(2, 8),
-      content: text,
-      createdAt: new Date,
-      replies: [],
-      score: 0,
-      user: currentUser
-    }
-    comments = [...comments, newComment]
-  }
 </script>
 
 <div>
   <textarea bind:value={text} placeholder="Add a comment..." />
   <footer>
     <img src={currentUser.image.png} alt="" />
-    <button on:click={addNewComment} >Send</button>
+    <button on:click={() => addNewComment(text)}>Send</button>
   </footer>
 </div>
 
