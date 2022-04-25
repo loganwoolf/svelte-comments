@@ -1,14 +1,28 @@
 <script>
-  export let image
-  // export let username
+  export let currentUser
+  export let comments
+  $: console.log(comments )
+  let text = ''
+
+  const addNewComment = () => {
+    console.log("I ran!" )
+    const newComment = {
+      id: Math.random().toString(16).slice(2, 8),
+      content: text,
+      createdAt: new Date,
+      replies: [],
+      score: 0,
+      user: currentUser
+    }
+    comments = [...comments, newComment]
+  }
 </script>
 
 <div>
-  <textarea name="" id="" cols="30" rows="3" placeholder="Add a comment..." />
+  <textarea bind:value={text} placeholder="Add a comment..." />
   <footer>
-    <img src={image.png} alt="" />
-    <!-- <img src="/images/avatars/image-juliusomo.png" alt="" /> -->
-    <button>Send</button>
+    <img src={currentUser.image.png} alt="" />
+    <button on:click={addNewComment} >Send</button>
   </footer>
 </div>
 
@@ -23,6 +37,7 @@
     border: 1px solid var(--light);
     border-radius: 0.5rem;
     padding: 0.8rem 1.3rem;
+    height: 5rem;
     width: calc(100% - 2.8rem);
     resize: none;
   }

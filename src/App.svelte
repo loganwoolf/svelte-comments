@@ -4,6 +4,7 @@
 
   let comments
   let currentUser
+  $: console.log(comments )
   fetch('/data.json')
     .then((response) => response.json())
     .then((result) => {
@@ -11,7 +12,6 @@
       currentUser = result.currentUser
     })
     .catch((err) => console.log('Error: ', err.message))
-  $: console.log({ comments, currentUser })
 </script>
 
 {#if !comments}
@@ -28,7 +28,7 @@
     {/if}
   {/each}
 
-  <CreateComment {...currentUser} />
+  <CreateComment {currentUser} {comments} />
   
 {/if}
 
