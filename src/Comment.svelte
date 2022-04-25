@@ -1,4 +1,5 @@
 <script>
+  import Time from 'svelte-time'
   import Score from './lib/Score.svelte'
 
   export let id
@@ -18,7 +19,14 @@
     {#if currentUser === user.username}
       <p class="you">you</p>
     {/if}
-    <p>{createdAt}</p>
+    <p>
+      <!-- temporary workaround until api attached -->
+      {#if typeof createdAt === 'string'}
+        {createdAt}
+      {:else}
+        <Time relative live={10000} timestamp={createdAt} />
+      {/if}
+    </p>
   </header>
 
   <p>
