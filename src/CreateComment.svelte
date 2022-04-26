@@ -1,18 +1,76 @@
 <script>
   export let currentUser
-  export let addNewComment
+  export let comments
+  export let replyingToID = null
+  export let replyOpen = null
 
-  let text = ''
+  let commentText = ''
+
+  const addNewComment = (text) => {
+    const newComment = {
+      id: Math.random().toString(16).slice(2, 8),
+      content: text,
+      createdAt: new Date(),
+      replies: [],
+      score: 0,
+      user: currentUser,
+    }
+    comments = [...comments, newComment]
+  }
+  const addReply = (text) => {
+    // find the parent comment index to append to
+    let parentCommentIndex = comments.findIndex(
+      (comment) =>
+        comment.id === replyingToID ||
+        comment.replies.find((reply) => reply.id === replyingToID)
+    )
+    let replyeeName
+
+    comments.forEach((comment) => {
+      if (comment.id === replyingToID) {
+        replyeeName = comment.user.username
+        return
+      }
+      comment.replies.forEach((reply) => {
+        if (reply.id === replyingToID) {
+          replyeeName = reply.user.username
+          return
+        }
+      })
+    })
+    
+    const newReply = {
+      id: Math.random().toString(16).slice(2, 8),
+      content: text,
+      createdAt: new Date(),
+      replyingTo: replyeeName,
+      score: 0,
+      user: currentUser,
+    }
+    comments[parentCommentIndex].replies = [
+      ...comments[parentCommentIndex].replies,
+      newReply,
+    ]
+    replyOpen = false
+  }
+
+  const handleClick = (text) => {
+    if (replyingToID) {
+      addReply(text)
+      return
+    }
+    addNewComment(text)
+  }
 </script>
 
 <div>
-  <textarea bind:value={text} placeholder="Add a comment..." />
+  <textarea bind:value={commentText} placeholder="Add a comment..." />
   <footer>
     <img src={currentUser.image.png} alt="" />
     <button
       on:click={() => {
-        addNewComment(text)
-        text = ''
+        handleClick(commentText)
+        commentText = ''
       }}>Send</button
     >
   </footer>

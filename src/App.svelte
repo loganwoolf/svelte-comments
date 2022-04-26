@@ -12,38 +12,34 @@
       currentUser = result.currentUser
     })
     .catch((err) => console.log('Error: ', err.message))
-
-  const addNewComment = (text) => {
-    const newComment = {
-      id: Math.random().toString(16).slice(2, 8),
-      content: text,
-      createdAt: new Date(),
-      replies: [],
-      score: 0,
-      user: currentUser,
-    }
-    comments = [...comments, newComment]
-  }
 </script>
 
 {#if !comments}
-  <p>Please wait for some comments</p>
+  <p class="no-comments">Be the first to comment!</p>
 {:else}
   {#each comments as comment}
-    <Comment {...comment} currentUser={currentUser.username} />
+    <Comment {...comment} {currentUser} bind:comments />
     {#if comment.replies.length}
       <div class="replies">
         {#each comment.replies as reply}
-          <Comment {...reply} currentUser={currentUser.username} isReply />
+          <Comment {...reply} {currentUser} bind:comments isReply />
         {/each}
       </div>
     {/if}
   {/each}
-
-  <CreateComment {currentUser} {addNewComment} />
+{/if}
+{#if currentUser}
+  <CreateComment {currentUser} bind:comments />
 {/if}
 
 <style>
+  .no-comments {
+    margin: 1rem;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    color: var(--pri-greyed);
+    background-color: var(--white);
+  }
   .replies {
     margin-left: 1rem;
     border-left: 0.15rem solid var(--light);
