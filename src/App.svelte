@@ -2,10 +2,12 @@
   import Comment from './Comment.svelte'
   import CreateComment from './CreateComment.svelte'
 
+  let URL = 'http://localhost:5555/'
+
   let comments
   let currentUser
 
-  fetch('/data.json')
+  fetch(URL)
     .then((response) => response.json())
     .then((result) => {
       comments = result.comments
