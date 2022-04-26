@@ -8,7 +8,7 @@
   fetch('/data.json')
     .then((response) => response.json())
     .then((result) => {
-      comments = result.comments
+      // comments = result.comments
       currentUser = result.currentUser
     })
     .catch((err) => console.log('Error: ', err.message))
@@ -27,7 +27,7 @@
 </script>
 
 {#if !comments}
-  <p>Please wait for some comments</p>
+  <p class="no-comments">Be the first to comment!</p>
 {:else}
   {#each comments as comment}
     <Comment {...comment} currentUser={currentUser.username} />
@@ -39,11 +39,19 @@
       </div>
     {/if}
   {/each}
-
+{/if}
+{#if currentUser}
   <CreateComment {currentUser} {addNewComment} />
 {/if}
 
 <style>
+  .no-comments {
+    margin: 1rem;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    color: var(--pri-greyed);
+    background-color: var(--white);
+  }
   .replies {
     margin-left: 1rem;
     border-left: 0.15rem solid var(--light);
