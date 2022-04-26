@@ -24,12 +24,26 @@
         comment.id === replyingToID ||
         comment.replies.find((reply) => reply.id === replyingToID)
     )
-    const parentComment = comments[parentCommentIndex]
+    let replyeeName
+
+    comments.forEach((comment) => {
+      if (comment.id === replyingToID) {
+        replyeeName = comment.user.username
+        return
+      }
+      comment.replies.forEach((reply) => {
+        if (reply.id === replyingToID) {
+          replyeeName = reply.user.username
+          return
+        }
+      })
+    })
+    
     const newReply = {
       id: Math.random().toString(16).slice(2, 8),
       content: text,
       createdAt: new Date(),
-      replyingTo: parentComment.user.username,
+      replyingTo: replyeeName,
       score: 0,
       user: currentUser,
     }
