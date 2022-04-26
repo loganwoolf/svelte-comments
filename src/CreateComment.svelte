@@ -1,18 +1,30 @@
 <script>
   export let currentUser
-  export let addNewComment
+  export let comments
 
-  let text = ''
+  let commentText = ''
+
+  const addNewComment = (text) => {
+    const newComment = {
+      id: Math.random().toString(16).slice(2, 8),
+      content: text,
+      createdAt: new Date(),
+      replies: [],
+      score: 0,
+      user: currentUser,
+    }
+    comments = [...comments, newComment]
+  }
 </script>
 
 <div>
-  <textarea bind:value={text} placeholder="Add a comment..." />
+  <textarea bind:value={commentText} placeholder="Add a comment..." />
   <footer>
     <img src={currentUser.image.png} alt="" />
     <button
       on:click={() => {
-        addNewComment(text)
-        text = ''
+        addNewComment(commentText)
+        commentText = ''
       }}>Send</button
     >
   </footer>

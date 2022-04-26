@@ -8,22 +8,11 @@
   fetch('/data.json')
     .then((response) => response.json())
     .then((result) => {
-      // comments = result.comments
+      comments = result.comments
       currentUser = result.currentUser
     })
     .catch((err) => console.log('Error: ', err.message))
 
-  const addNewComment = (text) => {
-    const newComment = {
-      id: Math.random().toString(16).slice(2, 8),
-      content: text,
-      createdAt: new Date(),
-      replies: [],
-      score: 0,
-      user: currentUser,
-    }
-    comments = [...comments, newComment]
-  }
 </script>
 
 {#if !comments}
@@ -41,7 +30,7 @@
   {/each}
 {/if}
 {#if currentUser}
-  <CreateComment {currentUser} {addNewComment} />
+  <CreateComment {currentUser} bind:comments={comments} />
 {/if}
 
 <style>
