@@ -3,7 +3,6 @@
   export let comments
   export let replyingToID = null
   export let replyOpen = null
-  $: console.log(comments )
 
   let commentText = ''
 
@@ -19,7 +18,12 @@
     comments = [...comments, newComment]
   }
   const addReply = (text) => {
-    const parentCommentIndex = comments.findIndex((comment) => comment.id === replyingToID)
+    // find the parent comment index to append to
+    let parentCommentIndex = comments.findIndex(
+      (comment) =>
+        comment.id === replyingToID ||
+        comment.replies.find((reply) => reply.id === replyingToID)
+    )
     const parentComment = comments[parentCommentIndex]
     const newReply = {
       id: Math.random().toString(16).slice(2, 8),
@@ -29,7 +33,10 @@
       score: 0,
       user: currentUser,
     }
-    comments[parentCommentIndex].replies = [...comments[parentCommentIndex].replies, newReply]
+    comments[parentCommentIndex].replies = [
+      ...comments[parentCommentIndex].replies,
+      newReply,
+    ]
     replyOpen = false
   }
 

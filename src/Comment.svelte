@@ -50,12 +50,14 @@
       <button class="delete"><span>Delete</span></button>
       <button class="edit"><span>Edit</span></button>
     {:else}
-      <button on:click={toggleReplyArea} class="reply"><span>Reply</span></button>
+      <button on:click={toggleReplyArea} class="reply"
+        ><span>Reply</span></button
+      >
     {/if}
   </footer>
 </article>
 {#if replyOpen}
-  <CreateComment {currentUser} bind:comments bind:replyOpen replyingToID={id}/>
+  <CreateComment {currentUser} bind:comments bind:replyOpen replyingToID={id} />
 {/if}
 
 <style>
