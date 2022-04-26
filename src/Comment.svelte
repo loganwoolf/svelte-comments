@@ -1,5 +1,6 @@
 <script>
   import Time from 'svelte-time'
+  import CreateComment from './CreateComment.svelte'
   import Score from './lib/Score.svelte'
 
   export let id
@@ -9,14 +10,21 @@
   export let user
   export let replyingTo
   export let isReply
+  export let comments
   export let currentUser
+
+  let replyOpen = false
+
+  const toggleReplyArea = () => {
+    replyOpen = !replyOpen
+  }
 </script>
 
 <article data-comment-id={id} class={isReply && 'reply'}>
   <header>
     <img src={user.image.png} alt="" />
     <h2>{user.username}</h2>
-    {#if currentUser === user.username}
+    {#if currentUser.username === user.username}
       <p class="you">you</p>
     {/if}
     <p>
@@ -38,14 +46,17 @@
 
   <footer>
     <Score {score} />
-    {#if currentUser === user.username}
+    {#if currentUser.username === user.username}
       <button class="delete"><span>Delete</span></button>
       <button class="edit"><span>Edit</span></button>
     {:else}
-      <button class="reply"><span>Reply</span></button>
+      <button on:click={toggleReplyArea} class="reply"><span>Reply</span></button>
     {/if}
   </footer>
 </article>
+{#if replyOpen}
+  <CreateComment {currentUser} bind:comments bind:replyOpen replyingToID={id}/>
+{/if}
 
 <style>
   article {

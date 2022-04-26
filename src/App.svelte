@@ -12,25 +12,24 @@
       currentUser = result.currentUser
     })
     .catch((err) => console.log('Error: ', err.message))
-
 </script>
 
 {#if !comments}
   <p class="no-comments">Be the first to comment!</p>
 {:else}
   {#each comments as comment}
-    <Comment {...comment} currentUser={currentUser.username} />
+    <Comment {...comment} {currentUser} bind:comments />
     {#if comment.replies.length}
       <div class="replies">
         {#each comment.replies as reply}
-          <Comment {...reply} currentUser={currentUser.username} isReply />
+          <Comment {...reply} {currentUser} bind:comments isReply />
         {/each}
       </div>
     {/if}
   {/each}
 {/if}
 {#if currentUser}
-  <CreateComment {currentUser} bind:comments={comments} />
+  <CreateComment {currentUser} bind:comments />
 {/if}
 
 <style>
