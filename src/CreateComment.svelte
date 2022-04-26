@@ -1,6 +1,9 @@
 <script>
   export let currentUser
   export let comments
+  export let replyingToID = null
+  export let replyOpen = null
+  $: console.log(comments )
 
   let commentText = ''
 
@@ -15,6 +18,28 @@
     }
     comments = [...comments, newComment]
   }
+  const addReply = (text) => {
+    const parentCommentIndex = comments.findIndex((comment) => comment.id === replyingToID)
+    const parentComment = comments[parentCommentIndex]
+    const newReply = {
+      id: Math.random().toString(16).slice(2, 8),
+      content: text,
+      createdAt: new Date(),
+      replyingTo: parentComment.user.username,
+      score: 0,
+      user: currentUser,
+    }
+    comments[parentCommentIndex].replies = [...comments[parentCommentIndex].replies, newReply]
+    replyOpen = false
+  }
+
+  const handleClick = (text) => {
+    if (replyingToID) {
+      addReply(text)
+      return
+    }
+    addNewComment(text)
+  }
 </script>
 
 <div>
@@ -23,7 +48,7 @@
     <img src={currentUser.image.png} alt="" />
     <button
       on:click={() => {
-        addNewComment(commentText)
+        handleClick(commentText)
         commentText = ''
       }}>Send</button
     >
