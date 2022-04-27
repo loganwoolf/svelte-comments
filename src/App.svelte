@@ -7,12 +7,10 @@
 
   const fetchUser = fetch('http://localhost:5555/user')
   const fetchComments = fetch('http://localhost:5555/comments')
-  const getData = () => {
-    Promise.all([fetchUser, fetchComments])
-      .then((response) => response.map((res) => res.json()))
-      .then((result) => ([currentUser, comments] = result))
-      .catch((err) => console.log('Error: ', err.message))
-  }
+  Promise.all([fetchUser, fetchComments])
+    .then((response) => response.map((res) => res.json()))
+    .then((result) => ([currentUser, comments] = result))
+    .catch((err) => console.log('Error: ', err.message))
 </script>
 
 {#if !comments}
