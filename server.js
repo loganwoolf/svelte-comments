@@ -1,4 +1,5 @@
 import 'dotenv/config'
+import cors from 'cors'
 import express from 'express'
 import morgan from 'morgan'
 
@@ -7,6 +8,7 @@ import db from './db/db.js'
 const app = express()
 const port = 5555
 
+app.use(cors())
 app.use(morgan('dev'))
 app.use(express.json())
 
