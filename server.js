@@ -10,9 +10,10 @@ const port = 5555
 app.use(morgan('dev'))
 app.use(express.json())
 
-app.get('/', (req, res) => {
-  res.send(db)
-})
+import commentRoutes from "./routes/comments.js"
+app.use('/comments', commentRoutes(db))
+import userRoutes from "./routes/user.js"
+app.use('/user', userRoutes(db))
 
 app.listen(port, () => {
   console.log('Server running on port ' + port)
