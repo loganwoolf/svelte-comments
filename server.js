@@ -13,7 +13,7 @@ app.use(morgan('dev'))
 app.use(express.json()) // replaces body-parser
 
 import commentRoutes from './routes/comments.js'
-app.use('/comments', commentRoutes(db))
+app.use('/comments', commentRoutes(query))
 import userRoutes from './routes/user.js'
 app.use('/user', userRoutes(db))
 import testRoutes from './routes/test.js'
