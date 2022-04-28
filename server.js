@@ -1,16 +1,19 @@
 import 'dotenv/config'
-import cors from 'cors'
-import express from 'express'
+import express from 'express';
 import morgan from 'morgan'
+import cors from 'cors'
+import knex from 'knex'
 
-import db from './db/db.js'
+import db from './db/db.js' //soon to be replaced with sqlite3
+import knexConfig from './db/knexfile.js'
 
 const app = express()
-const port = 5555
+const port = process.env.PORT
+knex(knexConfig[process.env.NODE_ENV])
 
 app.use(cors())
 app.use(morgan('dev'))
-app.use(express.json())
+app.use(express.json()) // replaces body-parser
 
 import commentRoutes from "./routes/comments.js"
 app.use('/comments', commentRoutes(db))

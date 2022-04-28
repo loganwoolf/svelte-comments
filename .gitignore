@@ -28,4 +28,7 @@ dist-ssr
 *.xd
 
 # Environment
-.env
+.env*
+
+# Database
+*.sqlite*
