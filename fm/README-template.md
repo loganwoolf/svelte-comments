@@ -65,6 +65,18 @@ Then crop/optimize/edit your image however you like, add it to your project, and
 
 ### What I learned
 
+- How to make your project use ESModules
+
+- How to set up an sqlite3 database
+
+- How to set up Knex to create db agnostic queries
+
+- Svelte
+
+- Cors
+
+- Body Parser not needed in Express anymore
+
 Use this section to recap over some of your major learnings while working through this project. Writing these out and providing code samples of areas you want to highlight is a great way to reinforce your own knowledge.
 
 To see how you can add code snippets, see below:
@@ -98,6 +110,10 @@ Use this section to outline areas that you want to continue focusing on in futur
 - [Example resource 1](https://www.example.com) - This helped me for XYZ reason. I really liked this pattern and will use it going forward.
 - [Example resource 2](https://www.example.com) - This is an amazing article which helped me finally understand XYZ. I'd recommend it to anyone still learning this concept.
 - [Mask to change svg color on hover](https://css-tricks.com/change-color-of-svg-on-hover/#aa-use-a-mask-instead-of-a-background-image) - Change svg color on hover without using it inline. Required some tweaks from the example
+
+- [Getting set up with Knex](https://blog.shahednasser.com/knex-js-tutorial-for-beginners/) - Very descriptive tutorial that needed to be adapted for ESModules.
+- [Cross Reference setting up Knex](https://gist.github.com/EstebanBorai/49f4501aa23dd666ae57b32bafeb768c) - Used information here to verify and see a second perspective.
+
 
 **Note: Delete this note and replace the list above with resources that helped you during the challenge. These could come in handy for anyone viewing your solution or for yourself when you look back on this project in the future.**
 

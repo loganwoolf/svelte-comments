@@ -26,3 +26,9 @@ dist-ssr
 *.suo
 *.sw?
 *.xd
+
+# Environment
+.env*
+
+# Database
+*.sqlite*

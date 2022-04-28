@@ -1,17 +1,19 @@
 <script>
+  import { onMount } from 'svelte'
   import Comment from './Comment.svelte'
   import CreateComment from './CreateComment.svelte'
 
-  let comments
   let currentUser
+  let comments
 
-  fetch('/data.json')
-    .then((response) => response.json())
-    .then((result) => {
-      comments = result.comments
-      currentUser = result.currentUser
-    })
-    .catch((err) => console.log('Error: ', err.message))
+  onMount(() => {
+    const fetchUser = fetch('http://localhost:5555/user')
+    const fetchComments = fetch('http://localhost:5555/comments')
+    Promise.all([fetchUser, fetchComments])
+      .then((response) => Promise.all(response.map((res) => res.json())))
+      .then((result) => ([currentUser, comments] = result))
+      .catch((err) => console.log('Error: ', err.message))
+  })
 </script>
 
 {#if !comments}
