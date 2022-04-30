@@ -28,12 +28,7 @@
       <p class="you">you</p>
     {/if}
     <p>
-      <!-- temporary workaround until api attached -->
-      {#if typeof createdAt === 'string'}
-        {createdAt}
-      {:else}
-        <Time relative live={10000} timestamp={createdAt} />
-      {/if}
+      <Time relative live={10000} timestamp={createdAt} />
     </p>
   </header>
 
