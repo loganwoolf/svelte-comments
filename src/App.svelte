@@ -4,7 +4,7 @@
   import CreateComment from './CreateComment.svelte'
 
   let currentUser
-  let comments
+  let comments = []
 
   onMount(() => {
     const fetchUser = fetch('http://localhost:5555/user')
@@ -16,7 +16,7 @@
   })
 </script>
 
-{#if !comments}
+{#if !comments.length}
   <p class="no-comments">Be the first to comment!</p>
 {:else}
   {#each comments as comment}

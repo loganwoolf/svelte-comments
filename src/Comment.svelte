@@ -8,7 +8,7 @@
   export let createdAt
   export let score
   export let user
-  export let replyingTo
+  export let replyName
   export let isReply
   export let comments
   export let currentUser
@@ -22,7 +22,7 @@
 
 <article data-comment-id={id} class={isReply && 'reply'}>
   <header>
-    <img src={user.image.png} alt="" />
+    <img src={user.image} alt="" />
     <h2>{user.username}</h2>
     {#if currentUser.username === user.username}
       <p class="you">you</p>
@@ -38,8 +38,8 @@
   </header>
 
   <p>
-    {#if replyingTo}
-      <span class="handle">@{replyingTo}</span>
+    {#if replyName}
+      <span class="handle">@{replyName}</span>
     {/if}
     {content}
   </p>
