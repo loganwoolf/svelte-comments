@@ -13,20 +13,21 @@ export default (query) => {
         replyTo: 'replyTo',
       })
       .then((rows) => {
-        return rows.map((comment) => {
-          query('users')
-            .select({
-              username: 'username',
-              image: 'image_png',
-            })
-            .where({ id: comment.user })
-            .then((rows) => {
-              comment.user = rows[0]
-            })
-          return comment
-        })
+        Promise.all(
+          rows.map((comment) => {
+            return query('users')
+              .select({
+                username: 'username',
+                image: 'image_png',
+              })
+              .where({ id: comment.user })
+              .then((rows) => {
+                comment.user = rows[0]
+                return comment //comment at this point is looking correct
+              })
+          })
+        ).then((data) => res.json(data))
       })
-      .then((data) => res.json(data))
   })
 
   return router
