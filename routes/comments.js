@@ -26,7 +26,6 @@ export default (query) => {
       .then((rows) => {
         const newTree = []
         rows.forEach((comment) => {
-          console.log({ newTree })
           if (!comment.replyTo) {
             comment.replies = []
             delete comment.replyTo

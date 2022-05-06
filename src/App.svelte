@@ -7,8 +7,8 @@
   let comments = []
 
   onMount(() => {
-    const fetchUser = fetch('http://localhost:5555/user')
-    const fetchComments = fetch('http://localhost:5555/comments')
+    const fetchUser = fetch('http://localhost:5555/api/v1/users/current')
+    const fetchComments = fetch('http://localhost:5555/api/v1/comments')
     Promise.all([fetchUser, fetchComments])
       .then((response) => Promise.all(response.map((res) => res.json())))
       .then((result) => ([currentUser, comments] = result))

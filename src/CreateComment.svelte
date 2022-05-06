@@ -38,7 +38,7 @@
         }
       })
     })
-    
+
     const newReply = {
       id: Math.random().toString(16).slice(2, 8),
       content: text,
@@ -66,7 +66,7 @@
 <div>
   <textarea bind:value={commentText} placeholder="Add a comment..." />
   <footer>
-    <img src={currentUser.image.png} alt="" />
+    <img src={currentUser.image} alt="" />
     <button
       on:click={() => {
         handleClick(commentText)
