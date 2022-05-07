@@ -8,14 +8,15 @@
 
   const addNewComment = (text) => {
     const newComment = {
-      id: Math.random().toString(16).slice(2, 8),
       content: text,
-      createdAt: new Date(),
-      replies: [],
-      score: 0,
-      user: currentUser,
     }
-    comments = [...comments, newComment]
+    fetch('http://localhost:5555/api/v1/comments', {
+      method: 'POST',
+      body: JSON.stringify(newComment),
+      headers: { 'Content-type': 'application/json; charset=UTF-8' },
+    })
+      .then((response) => response.json())
+      .then((json) => (comments = [...comments, json]))
   }
   const addReply = (text) => {
     // find the parent comment index to append to

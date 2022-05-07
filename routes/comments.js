@@ -73,6 +73,7 @@ export default (query) => {
                 username: comment.username,
                 image: comment.image,
               }
+              comment.replies = []
               delete comment.username
               delete comment.image
               return comment
