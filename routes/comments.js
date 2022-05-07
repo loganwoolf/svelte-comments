@@ -12,7 +12,7 @@ export default (query) => {
         score: 'comments.score',
         username: 'users.username',
         image: 'users.image_png',
-        replyTo: 'comments.replyTo',
+        replyTo: 'comments.reply_to',
         replyName: 'comments.reply_name',
       })
       .then((rows) => {

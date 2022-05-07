@@ -33,7 +33,7 @@ export async function seed(knex) {
       updated_at: '2022-04-21 06:21:05',
       score: 4,
       reply_name: 'maxblagun',
-      replyTo: 2,
+      reply_to: 2,
     },
     {
       id: 4,
@@ -44,7 +44,7 @@ export async function seed(knex) {
       updated_at: '2022-04-27 06:21:05',
       score: 2,
       reply_name: 'ramsesmiron',
-      replyTo: 2,
+      reply_to: 2,
     },
   ])
 }
