@@ -2,6 +2,7 @@
   export let currentUser
   export let comments
   export let replyingToID = null
+  export let replyingToName = null
   export let replyOpen = null
 
   let commentText = ''
@@ -25,29 +26,14 @@
         comment.id === replyingToID ||
         comment.replies.find((reply) => reply.id === replyingToID)
     )
-    let replyeeName
-
-    comments.forEach((comment) => {
-      if (comment.id === replyingToID) {
-        replyeeName = comment.user.username
-        return
-      }
-      comment.replies.forEach((reply) => {
-        if (reply.id === replyingToID) {
-          replyeeName = reply.user.username
-          return
-        }
-      })
-    })
 
     const newReply = {
-      id: Math.random().toString(16).slice(2, 8),
       content: text,
-      createdAt: new Date(),
-      replyingTo: replyeeName,
-      score: 0,
-      user: currentUser,
+      replyingTo: replyingToName,
     }
+
+    
+
     comments[parentCommentIndex].replies = [
       ...comments[parentCommentIndex].replies,
       newReply,

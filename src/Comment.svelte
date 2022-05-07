@@ -52,7 +52,7 @@
   </footer>
 </article>
 {#if replyOpen}
-  <CreateComment {currentUser} bind:comments bind:replyOpen replyingToID={id} />
+  <CreateComment {currentUser} bind:comments bind:replyOpen replyingToID={id} replyingToName={user.username} />
 {/if}
 
 <style>

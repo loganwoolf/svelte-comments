@@ -43,6 +43,10 @@ export default (query) => {
       .then((data) => res.json(data))
   })
 
+  router.post('/:id', (req, res) => {
+    
+  })
+  
   router.post('/', (req, res) => {
     const currentUserID = 4
     const commentObj = {
