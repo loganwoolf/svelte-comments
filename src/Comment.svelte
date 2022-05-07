@@ -28,7 +28,7 @@
       <p class="you">you</p>
     {/if}
     <p>
-      <Time relative live={10000} timestamp={createdAt} />
+      <Time relative live={10000} timestamp={new Date(createdAt.replace(' ', 'T') + 'Z')} />
     </p>
   </header>
 
