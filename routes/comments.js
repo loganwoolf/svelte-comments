@@ -132,5 +132,16 @@ export default (query) => {
       .catch((error) => console.log({ error }))
   })
 
+  router.delete('/:id', (req, res) => {
+    query('comments')
+      .where({
+        id: req.params.id,
+        user: currentUserID,
+      })
+      .del()
+      .then((response) => res.json({deleted: response}))
+      .catch((error) => console.log({ error }))
+  })
+
   return router
 }

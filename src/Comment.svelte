@@ -19,6 +19,34 @@
   const toggleReplyArea = () => {
     replyOpen = !replyOpen
   }
+
+  const removeFromPage = () => {
+    if (!isReply) {
+      const commentIndex = comments.findIndex((comment) => comment.id === id)
+      return (comments = [
+        ...comments.slice(0, commentIndex),
+        ...comments.slice(commentIndex + 1),
+      ])
+    }
+    const parentIndex = comments.findIndex((comment) => comment.id === parentID)
+    const commentIndex = comments[parentIndex].replies.findIndex(
+      (comment) => comment.id === id
+    )
+    return (comments[parentIndex].replies = [
+      ...comments[parentIndex].replies.slice(0, commentIndex),
+      ...comments[parentIndex].replies.slice(commentIndex + 1),
+    ])
+  }
+
+  const deleteComment = () => {
+    fetch(`http://localhost:5555/api/v1/comments/${id}`, {
+      method: 'DELETE',
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        return json.deleted && removeFromPage()
+      })
+  }
 </script>
 
 <article data-comment-id={id} class={isReply && 'reply'}>
@@ -29,7 +57,11 @@
       <p class="you">you</p>
     {/if}
     <p>
-      <Time relative live={10000} timestamp={new Date(createdAt.replace(' ', 'T') + 'Z')} />
+      <Time
+        relative
+        live={10000}
+        timestamp={new Date(createdAt.replace(' ', 'T') + 'Z')}
+      />
     </p>
   </header>
 
@@ -43,7 +75,9 @@
   <footer>
     <Score {score} />
     {#if currentUser.username === user.username}
-      <button class="delete"><span>Delete</span></button>
+      <button on:click={deleteComment} class="delete">
+        <span>Delete</span>
+      </button>
       <button class="edit"><span>Edit</span></button>
     {:else}
       <button on:click={toggleReplyArea} class="reply"
@@ -53,7 +87,13 @@
   </footer>
 </article>
 {#if replyOpen}
-  <CreateComment {currentUser} bind:comments bind:replyOpen replyingToID={parentID || id} replyingToName={user.username} />
+  <CreateComment
+    {currentUser}
+    bind:comments
+    bind:replyOpen
+    replyingToID={parentID || id}
+    replyingToName={user.username}
+  />
 {/if}
 
 <style>
