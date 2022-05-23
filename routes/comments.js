@@ -1,6 +1,9 @@
 import express from 'express'
 const router = express.Router()
 
+// current user simulating cookie
+const currentUserID = 4
+
 export default (query) => {
   router.get('/', (req, res) => {
     query('comments')
@@ -44,7 +47,6 @@ export default (query) => {
   })
 
   router.post('/:id', (req, res) => {
-    const currentUserID = 4
     const commentObj = {
       content: req.body.content,
       reply_name: req.body.replyName,
@@ -89,7 +91,6 @@ export default (query) => {
   })
 
   router.post('/', (req, res) => {
-    const currentUserID = 4
     const commentObj = {
       content: req.body.content,
       user: currentUserID,
