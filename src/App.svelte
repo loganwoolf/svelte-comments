@@ -4,11 +4,11 @@
   import CreateComment from './CreateComment.svelte'
 
   let currentUser
-  let comments
+  let comments = []
 
   onMount(() => {
-    const fetchUser = fetch('http://localhost:5555/user')
-    const fetchComments = fetch('http://localhost:5555/comments')
+    const fetchUser = fetch('http://localhost:5555/api/v1/users/current')
+    const fetchComments = fetch('http://localhost:5555/api/v1/comments')
     Promise.all([fetchUser, fetchComments])
       .then((response) => Promise.all(response.map((res) => res.json())))
       .then((result) => ([currentUser, comments] = result))
@@ -16,15 +16,15 @@
   })
 </script>
 
-{#if !comments}
+{#if !comments.length}
   <p class="no-comments">Be the first to comment!</p>
 {:else}
   {#each comments as comment}
     <Comment {...comment} {currentUser} bind:comments />
     {#if comment.replies.length}
-      <div class="replies">
+      <div class="replies" data-reply-to-id={comment.id}>
         {#each comment.replies as reply}
-          <Comment {...reply} {currentUser} bind:comments isReply />
+          <Comment {...reply} parentID={comment.id} {currentUser} bind:comments isReply />
         {/each}
       </div>
     {/if}

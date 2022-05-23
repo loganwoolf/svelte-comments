@@ -8,10 +8,11 @@
   export let createdAt
   export let score
   export let user
-  export let replyingTo
+  export let replyName
   export let isReply
   export let comments
   export let currentUser
+  export let parentID
 
   let replyOpen = false
 
@@ -22,24 +23,19 @@
 
 <article data-comment-id={id} class={isReply && 'reply'}>
   <header>
-    <img src={user.image.png} alt="" />
+    <img src={user.image} alt="" />
     <h2>{user.username}</h2>
     {#if currentUser.username === user.username}
       <p class="you">you</p>
     {/if}
     <p>
-      <!-- temporary workaround until api attached -->
-      {#if typeof createdAt === 'string'}
-        {createdAt}
-      {:else}
-        <Time relative live={10000} timestamp={createdAt} />
-      {/if}
+      <Time relative live={10000} timestamp={new Date(createdAt.replace(' ', 'T') + 'Z')} />
     </p>
   </header>
 
   <p>
-    {#if replyingTo}
-      <span class="handle">@{replyingTo}</span>
+    {#if replyName}
+      <span class="handle">@{replyName}</span>
     {/if}
     {content}
   </p>
@@ -57,7 +53,7 @@
   </footer>
 </article>
 {#if replyOpen}
-  <CreateComment {currentUser} bind:comments bind:replyOpen replyingToID={id} />
+  <CreateComment {currentUser} bind:comments bind:replyOpen replyingToID={parentID || id} replyingToName={user.username} />
 {/if}
 
 <style>
