@@ -24,7 +24,7 @@
     {#if comment.replies.length}
       <div class="replies" data-reply-to-id={comment.id}>
         {#each comment.replies as reply}
-          <Comment {...reply} {currentUser} bind:comments isReply />
+          <Comment {...reply} parentID={comment.id} {currentUser} bind:comments isReply />
         {/each}
       </div>
     {/if}

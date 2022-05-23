@@ -12,6 +12,7 @@
   export let isReply
   export let comments
   export let currentUser
+  export let parentID
 
   let replyOpen = false
 
@@ -52,7 +53,7 @@
   </footer>
 </article>
 {#if replyOpen}
-  <CreateComment {currentUser} bind:comments bind:replyOpen replyingToID={id} replyingToName={user.username} />
+  <CreateComment {currentUser} bind:comments bind:replyOpen replyingToID={parentID || id} replyingToName={user.username} />
 {/if}
 
 <style>

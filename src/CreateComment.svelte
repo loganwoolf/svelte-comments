@@ -19,25 +19,29 @@
       .then((response) => response.json())
       .then((json) => (comments = [...comments, json]))
   }
+
   const addReply = (text) => {
-    // find the parent comment index to append to
     let parentCommentIndex = comments.findIndex(
-      (comment) =>
-        comment.id === replyingToID ||
-        comment.replies.find((reply) => reply.id === replyingToID)
+      (comment) => comment.id === replyingToID
     )
 
     const newReply = {
       content: text,
-      replyingTo: replyingToName,
+      replyName: replyingToName,
     }
 
-    
-
-    comments[parentCommentIndex].replies = [
-      ...comments[parentCommentIndex].replies,
-      newReply,
-    ]
+    fetch(`http://localhost:5555/api/v1/comments/${replyingToID}`, {
+      method: 'POST',
+      body: JSON.stringify(newReply),
+      headers: { 'Content-type': 'application/json; charset=UTF-8' },
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        comments[parentCommentIndex].replies = [
+          ...comments[parentCommentIndex].replies,
+          json,
+        ]
+      })
     replyOpen = false
   }
 
