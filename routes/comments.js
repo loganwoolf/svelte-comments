@@ -132,6 +132,21 @@ export default (query) => {
       .catch((error) => console.log({ error }))
   })
 
+  router.patch('/:id', (req, res) => {
+    const commentObj = {
+      content: req.body.content,
+    }
+
+    query('comments')
+      .where({
+        id: req.params.id,
+        user: currentUserID,
+      })
+      .update(commentObj)
+      .then(() => query('comments').where({ id: req.params.id }))
+      .then((rows) => res.json(rows[0]))
+  })
+
   router.delete('/:id', (req, res) => {
     query('comments')
       .where({
@@ -139,7 +154,7 @@ export default (query) => {
         user: currentUserID,
       })
       .del()
-      .then((response) => res.json({deleted: response}))
+      .then((response) => res.json({ deleted: response }))
       .catch((error) => console.log({ error }))
   })
 
