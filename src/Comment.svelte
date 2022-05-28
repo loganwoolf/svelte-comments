@@ -1,5 +1,6 @@
 <script>
   import Time from 'svelte-time'
+  import ConfirmDelete from './ConfirmDelete.svelte'
   import CreateComment from './CreateComment.svelte'
   import Score from './lib/Score.svelte'
 
@@ -15,6 +16,7 @@
   export let parentID
 
   let replyOpen = false
+  let confirmDeleteOpen = false
 
   const toggleReplyArea = () => {
     replyOpen = !replyOpen
@@ -38,7 +40,11 @@
     ])
   }
 
-  const deleteComment = () => {
+  const toggleDeleteDialog = () => {
+    confirmDeleteOpen = !confirmDeleteOpen
+  }
+
+  const deleteComment = (id) => {
     fetch(`http://localhost:5555/api/v1/comments/${id}`, {
       method: 'DELETE',
     })
@@ -75,7 +81,7 @@
   <footer>
     <Score {score} />
     {#if currentUser.username === user.username}
-      <button on:click={deleteComment} class="delete">
+      <button on:click={toggleDeleteDialog} class="delete">
         <span>Delete</span>
       </button>
       <button class="edit"><span>Edit</span></button>
@@ -93,6 +99,12 @@
     bind:replyOpen
     replyingToID={parentID || id}
     replyingToName={user.username}
+  />
+{/if}
+{#if confirmDeleteOpen && user.username === currentUser.username}
+  <ConfirmDelete
+    deleteComment={() => deleteComment(id)}
+    toggleDeleteDialog={() => toggleDeleteDialog()}
   />
 {/if}
 
