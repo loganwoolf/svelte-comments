@@ -16,7 +16,7 @@
   export let parentID
 
   let replyOpen = false
-  let confirmDeleteOpen = false
+  let deleteOpen = false
 
   const toggleReplyArea = () => {
     replyOpen = !replyOpen
@@ -41,7 +41,7 @@
   }
 
   const toggleDeleteDialog = () => {
-    confirmDeleteOpen = !confirmDeleteOpen
+    deleteOpen = !deleteOpen
   }
 
   const deleteComment = (id) => {
@@ -101,7 +101,7 @@
     replyingToName={user.username}
   />
 {/if}
-{#if confirmDeleteOpen && user.username === currentUser.username}
+{#if deleteOpen && user.username === currentUser.username}
   <ConfirmDelete
     deleteComment={() => deleteComment(id)}
     toggleDeleteDialog={() => toggleDeleteDialog()}
