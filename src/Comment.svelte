@@ -234,4 +234,25 @@
   button:hover {
     opacity: 0.4;
   }
+  .outline {
+    /* Apply only when editing text */
+    border: 1px solid var(--light);
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+  }
+  .update {
+    background-color: var(--pri);
+    color: var(--white);
+    font-weight: 500;
+    text-transform: uppercase;
+    border: unset;
+    border-radius: 0.3rem;
+    width: 5rem;
+    padding: 0.7rem;
+    cursor: pointer;
+    margin-left: auto;
+  }
+  [contenteditable] {
+    outline: unset;
+  }
 </style>
