@@ -90,7 +90,9 @@
   }
   button {
     text-transform: uppercase;
-    padding: 0.7rem 1.4rem;
+    height: 2.4rem;
+    width: 5rem;
+    padding: 0.7rem;
     background-color: var(--pri);
     border: unset;
     color: var(--white);
