@@ -62,8 +62,10 @@
       on:click={() => {
         handleClick(commentText)
         commentText = ''
-      }}>Send</button
+      }}
     >
+      {replyingToID ? 'Reply' : 'Send'}
+    </button>
   </footer>
 </div>
 
@@ -100,5 +102,8 @@
     font-weight: 500;
     border-radius: 0.3rem;
     cursor: pointer;
+  }
+  button:hover {
+    opacity: 0.4;
   }
 </style>
