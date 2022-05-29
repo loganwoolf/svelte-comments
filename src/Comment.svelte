@@ -53,6 +53,18 @@
         return json.deleted && removeFromPage()
       })
   }
+
+  const handleUpdate = (id) => {
+    const payload = { content: newContent }
+    fetch(`http://localhost:5555/api/v1/comments/${id}`, {
+      method: 'PATCH',
+      body: JSON.stringify(payload),
+      headers: { 'Content-type': 'application/json; charset=UTF-8' },
+    })
+      .then((response) => response.json())
+      .then((json) => (content = json.content))
+    editOpen = false
+  }
 </script>
 
 <article data-comment-id={id} class={isReply && 'reply'}>
