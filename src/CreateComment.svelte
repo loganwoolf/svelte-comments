@@ -45,13 +45,8 @@
     replyOpen = false
   }
 
-  const handleClick = (text) => {
-    if (replyingToID) {
-      addReply(text)
-      return
-    }
-    addNewComment(text)
-  }
+  const handleClick = (text) =>
+    replyingToID ? addReply(text) : addNewComment(text)
 </script>
 
 <div>
