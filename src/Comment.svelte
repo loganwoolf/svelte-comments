@@ -81,12 +81,12 @@
   <footer>
     <Score {score} />
     {#if currentUser.username === user.username}
-      <button on:click={toggleDeleteDialog} class="delete">
+      <button on:click={toggleDeleteDialog} class="icon delete">
         <span>Delete</span>
       </button>
-      <button class="edit"><span>Edit</span></button>
+      <button on:click={toggleEdit} class="icon edit"><span>Edit</span></button>
     {:else}
-      <button on:click={toggleReplyArea} class="reply"
+      <button on:click={toggleReplyArea} class="icon reply"
         ><span>Reply</span></button
       >
     {/if}
@@ -158,7 +158,7 @@
     align-items: center;
     gap: 0.5rem;
   }
-  button {
+  .icon {
     display: inline-flex;
     background-color: inherit;
     gap: 0.4rem;
@@ -176,7 +176,7 @@
   .delete {
     color: var(--loud);
   }
-  button::before {
+  .icon::before {
     --size: 1.1rem;
     display: inline-flex;
     align-items: center;
