@@ -17,6 +17,8 @@
 
   let replyOpen = false
   let deleteOpen = false
+  let editOpen = false
+  let newContent = content
 
   const toggleReplyArea = () => {
     replyOpen = !replyOpen
@@ -54,6 +56,13 @@
       })
   }
 
+  const toggleEdit = () => {
+    if (editOpen) {
+      newContent = content
+    }
+    editOpen = !editOpen
+  }
+
   const handleUpdate = (id) => {
     const payload = { content: newContent }
     fetch(`http://localhost:5555/api/v1/comments/${id}`, {
@@ -83,12 +92,26 @@
     </p>
   </header>
 
-  <p>
-    {#if replyName}
-      <span class="handle">@{replyName}</span>
-    {/if}
-    {content}
-  </p>
+  {#if editOpen}
+    <div class="outline">
+      {#if replyName}
+        <span class="handle">@{replyName}</span>
+      {/if}
+      <p
+        bind:textContent={newContent}
+        class="textarea"
+        contenteditable="true"
+      />
+    </div>
+    <button on:click={() => handleUpdate(id)} class="update">Update</button>
+  {:else}
+    <p>
+      {#if replyName}
+        <span class="handle">@{replyName}</span>
+      {/if}
+      {content}
+    </p>
+  {/if}
 
   <footer>
     <Score {score} />
