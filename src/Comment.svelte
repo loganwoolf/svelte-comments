@@ -246,9 +246,9 @@
     font-weight: 500;
     text-transform: uppercase;
     border: unset;
-    border-radius: 0.3rem;
-    width: 5rem;
-    padding: 0.7rem;
+    border-radius: 0.5rem;
+    width: 6.5rem;
+    height: 3rem;
     cursor: pointer;
     margin-left: auto;
   }

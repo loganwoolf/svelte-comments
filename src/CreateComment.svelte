@@ -90,14 +90,14 @@
   }
   button {
     text-transform: uppercase;
-    height: 2.4rem;
-    width: 5rem;
+    height: 3rem;
+    width: 6.5rem;
     padding: 0.7rem;
     background-color: var(--pri);
     border: unset;
     color: var(--white);
     font-weight: 500;
-    border-radius: 0.3rem;
+    border-radius: 0.5rem;
     cursor: pointer;
   }
   button:hover {
