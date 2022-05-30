@@ -1,6 +1,9 @@
 import express from 'express'
 const router = express.Router()
 
+// current user simulating cookie
+const currentUserID = 4
+
 export default (query) => {
   router.get('/', (req, res) => {
     query('comments')
@@ -44,7 +47,6 @@ export default (query) => {
   })
 
   router.post('/:id', (req, res) => {
-    const currentUserID = 4
     const commentObj = {
       content: req.body.content,
       reply_name: req.body.replyName,
@@ -89,7 +91,6 @@ export default (query) => {
   })
 
   router.post('/', (req, res) => {
-    const currentUserID = 4
     const commentObj = {
       content: req.body.content,
       user: currentUserID,
@@ -128,6 +129,32 @@ export default (query) => {
             res.json(rows[0])
           })
       })
+      .catch((error) => console.log({ error }))
+  })
+
+  router.patch('/:id', (req, res) => {
+    const commentObj = {
+      content: req.body.content,
+    }
+
+    query('comments')
+      .where({
+        id: req.params.id,
+        user: currentUserID,
+      })
+      .update(commentObj)
+      .then(() => query('comments').where({ id: req.params.id }))
+      .then((rows) => res.json(rows[0]))
+  })
+
+  router.delete('/:id', (req, res) => {
+    query('comments')
+      .where({
+        id: req.params.id,
+        user: currentUserID,
+      })
+      .del()
+      .then((response) => res.json({ deleted: response }))
       .catch((error) => console.log({ error }))
   })
 

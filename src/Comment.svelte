@@ -1,5 +1,6 @@
 <script>
   import Time from 'svelte-time'
+  import ConfirmDelete from './ConfirmDelete.svelte'
   import CreateComment from './CreateComment.svelte'
   import Score from './lib/Score.svelte'
 
@@ -8,16 +9,70 @@
   export let createdAt
   export let score
   export let user
-  export let replyName
-  export let isReply
+  export let replyName = null
+  export let isReply = null
   export let comments
   export let currentUser
-  export let parentID
+  export let parentID = null
 
   let replyOpen = false
+  let deleteOpen = false
+  let editOpen = false
+  let newContent = content
 
   const toggleReplyArea = () => {
     replyOpen = !replyOpen
+  }
+
+  const removeFromPage = () => {
+    if (!isReply) {
+      const commentIndex = comments.findIndex((comment) => comment.id === id)
+      return (comments = [
+        ...comments.slice(0, commentIndex),
+        ...comments.slice(commentIndex + 1),
+      ])
+    }
+    const parentIndex = comments.findIndex((comment) => comment.id === parentID)
+    const commentIndex = comments[parentIndex].replies.findIndex(
+      (comment) => comment.id === id
+    )
+    return (comments[parentIndex].replies = [
+      ...comments[parentIndex].replies.slice(0, commentIndex),
+      ...comments[parentIndex].replies.slice(commentIndex + 1),
+    ])
+  }
+
+  const toggleDeleteDialog = () => {
+    deleteOpen = !deleteOpen
+  }
+
+  const deleteComment = (id) => {
+    fetch(`http://localhost:5555/api/v1/comments/${id}`, {
+      method: 'DELETE',
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        return json.deleted && removeFromPage()
+      })
+  }
+
+  const toggleEdit = () => {
+    if (editOpen) {
+      newContent = content
+    }
+    editOpen = !editOpen
+  }
+
+  const handleUpdate = (id) => {
+    const payload = { content: newContent }
+    fetch(`http://localhost:5555/api/v1/comments/${id}`, {
+      method: 'PATCH',
+      body: JSON.stringify(payload),
+      headers: { 'Content-type': 'application/json; charset=UTF-8' },
+    })
+      .then((response) => response.json())
+      .then((json) => (content = json.content))
+    editOpen = false
   }
 </script>
 
@@ -29,31 +84,63 @@
       <p class="you">you</p>
     {/if}
     <p>
-      <Time relative live={10000} timestamp={new Date(createdAt.replace(' ', 'T') + 'Z')} />
+      <Time
+        relative
+        live={10000}
+        timestamp={new Date(createdAt.replace(' ', 'T') + 'Z')}
+      />
     </p>
   </header>
 
-  <p>
-    {#if replyName}
-      <span class="handle">@{replyName}</span>
-    {/if}
-    {content}
-  </p>
+  {#if editOpen}
+    <div class="outline">
+      {#if replyName}
+        <span class="handle">@{replyName}</span>
+      {/if}
+      <p
+        bind:textContent={newContent}
+        class="textarea"
+        contenteditable="true"
+      />
+    </div>
+    <button on:click={() => handleUpdate(id)} class="update">Update</button>
+  {:else}
+    <p>
+      {#if replyName}
+        <span class="handle">@{replyName}</span>
+      {/if}
+      {content}
+    </p>
+  {/if}
 
   <footer>
     <Score {score} />
     {#if currentUser.username === user.username}
-      <button class="delete"><span>Delete</span></button>
-      <button class="edit"><span>Edit</span></button>
+      <button on:click={toggleDeleteDialog} class="icon delete">
+        <span>Delete</span>
+      </button>
+      <button on:click={toggleEdit} class="icon edit"><span>Edit</span></button>
     {:else}
-      <button on:click={toggleReplyArea} class="reply"
+      <button on:click={toggleReplyArea} class="icon reply"
         ><span>Reply</span></button
       >
     {/if}
   </footer>
 </article>
 {#if replyOpen}
-  <CreateComment {currentUser} bind:comments bind:replyOpen replyingToID={parentID || id} replyingToName={user.username} />
+  <CreateComment
+    {currentUser}
+    bind:comments
+    bind:replyOpen
+    replyingToID={parentID || id}
+    replyingToName={user.username}
+  />
+{/if}
+{#if deleteOpen && user.username === currentUser.username}
+  <ConfirmDelete
+    deleteComment={() => deleteComment(id)}
+    toggleDeleteDialog={() => toggleDeleteDialog()}
+  />
 {/if}
 
 <style>
@@ -106,7 +193,7 @@
     align-items: center;
     gap: 0.5rem;
   }
-  button {
+  .icon {
     display: inline-flex;
     background-color: inherit;
     gap: 0.4rem;
@@ -124,7 +211,7 @@
   .delete {
     color: var(--loud);
   }
-  button::before {
+  .icon::before {
     --size: 1.1rem;
     display: inline-flex;
     align-items: center;
@@ -146,5 +233,26 @@
   }
   button:hover {
     opacity: 0.4;
+  }
+  .outline {
+    /* Apply only when editing text */
+    border: 1px solid var(--light);
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+  }
+  .update {
+    background-color: var(--pri);
+    color: var(--white);
+    font-weight: 500;
+    text-transform: uppercase;
+    border: unset;
+    border-radius: 0.3rem;
+    width: 5rem;
+    padding: 0.7rem;
+    cursor: pointer;
+    margin-left: auto;
+  }
+  [contenteditable] {
+    outline: unset;
   }
 </style>

@@ -45,13 +45,8 @@
     replyOpen = false
   }
 
-  const handleClick = (text) => {
-    if (replyingToID) {
-      addReply(text)
-      return
-    }
-    addNewComment(text)
-  }
+  const handleClick = (text) =>
+    replyingToID ? addReply(text) : addNewComment(text)
 </script>
 
 <div>
@@ -62,8 +57,10 @@
       on:click={() => {
         handleClick(commentText)
         commentText = ''
-      }}>Send</button
+      }}
     >
+      {replyingToID ? 'Reply' : 'Send'}
+    </button>
   </footer>
 </div>
 
@@ -93,12 +90,17 @@
   }
   button {
     text-transform: uppercase;
-    padding: 0.7rem 1.4rem;
+    height: 2.4rem;
+    width: 5rem;
+    padding: 0.7rem;
     background-color: var(--pri);
     border: unset;
     color: var(--white);
     font-weight: 500;
     border-radius: 0.3rem;
     cursor: pointer;
+  }
+  button:hover {
+    opacity: 0.4;
   }
 </style>
