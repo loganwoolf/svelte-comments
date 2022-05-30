@@ -9,11 +9,11 @@
   export let createdAt
   export let score
   export let user
-  export let replyName
-  export let isReply
+  export let replyName = null
+  export let isReply = null
   export let comments
   export let currentUser
-  export let parentID
+  export let parentID = null
 
   let replyOpen = false
   let deleteOpen = false
