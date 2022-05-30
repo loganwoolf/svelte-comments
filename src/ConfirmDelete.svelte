@@ -32,8 +32,10 @@
 
   .confirm {
     opacity: 1;
-    width: calc(100% - 5rem);
-    padding: 1.5rem;
+    width: calc(100% - 5.5rem);
+    max-width: 21rem;
+    padding: 1.75rem;
+    padding-top: 1.5rem;
     background-color: var(--white);
     line-height: 1.5;
     border-radius: 0.5rem;
@@ -49,7 +51,7 @@
   footer {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 0.7rem;
+    gap: 0.75rem;
   }
   button {
     color: var(--white);
@@ -57,9 +59,9 @@
     font-size: 1rem;
     text-transform: uppercase;
     border: unset;
-    padding: 0.8rem;
     border-radius: 0.5rem;
     cursor: pointer;
+    height: 3rem;
   }
   button:hover {
     opacity: 0.4;
