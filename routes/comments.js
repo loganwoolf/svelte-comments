@@ -134,7 +134,7 @@ export default (query) => {
 
   router.patch('/:id/vote', (req, res) => {
     const voted = req.body.voted
-    
+
     query('comments')
       .select('votes')
       .where({
@@ -159,12 +159,23 @@ export default (query) => {
         return votes
       })
       .then((votes) => {
-        query('comments')
+        return query('comments')
           .where({
             id: req.params.id,
           })
           .update({ votes: JSON.stringify(votes) })
-          .then((rows) => res.json(rows[0]))
+          .then((rows) => {
+            return rows
+          })
+      })
+      .then(() => {
+        query('comments')
+          .select('votes')
+          .where({ id: req.params.id })
+          .then((rows) => {
+            let obj = JSON.parse(rows[0].votes)
+            res.json(obj)
+          })
       })
   })
 
