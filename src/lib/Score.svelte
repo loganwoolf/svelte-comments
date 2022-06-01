@@ -2,6 +2,9 @@
   export let votes
   export let userID
 
+  let upButton
+  let downButton
+  let voted = 0
   const upVote = () => {
     // score += 1
   }
@@ -11,9 +14,17 @@
 </script>
 
 <div class="score">
-  <button class="icon score-up" on:click={upVote} />
+  <button
+    bind:this={upButton}
+    class="icon score-up {voted === 1 && 'upvoted'}"
+    on:click={upVote}
+  />
   <p>{votes.up_users.length - votes.down_users.length}</p>
-  <button class="icon score-down" on:click={downVote} />
+  <button
+    bind:this={downButton}
+    class="icon score-down {voted === -1 && 'downvoted'}"
+    on:click={downVote}
+  />
 </div>
 
 <style>
@@ -48,6 +59,12 @@
   }
   .icon:hover {
     background-color: var(--pri);
+  }
+  .upvoted {
+    background-color: green;
+  }
+  .downvoted {
+    background-color: red;
   }
   p {
     color: var(--pri);
