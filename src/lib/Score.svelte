@@ -1,5 +1,6 @@
 <script>
   export let votes
+  export let userID
 
   const upVote = () => {
     // score += 1
