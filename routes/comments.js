@@ -132,6 +132,42 @@ export default (query) => {
       .catch((error) => console.log({ error }))
   })
 
+  router.patch('/:id/vote', (req, res) => {
+    const voted = req.body.voted
+    
+    query('comments')
+      .select('votes')
+      .where({
+        id: req.params.id,
+      })
+      .then((rows) => {
+        const json = JSON.parse(rows[0].votes)
+        const votes = {
+          up_users: new Set([...json.up_users]),
+          down_users: new Set([...json.down_users]),
+        }
+        votes.up_users.delete(currentUserID)
+        votes.down_users.delete(currentUserID)
+        if (voted === -1) {
+          votes.down_users.add(currentUserID)
+        } else if (voted === 1) {
+          votes.up_users.add(currentUserID)
+        }
+
+        votes.up_users = [...votes.up_users]
+        votes.down_users = [...votes.down_users]
+        return votes
+      })
+      .then((votes) => {
+        query('comments')
+          .where({
+            id: req.params.id,
+          })
+          .update({ votes: JSON.stringify(votes) })
+          .then((rows) => res.json(rows[0]))
+      })
+  })
+
   router.patch('/:id', (req, res) => {
     const commentObj = {
       content: req.body.content,
