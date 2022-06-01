@@ -1,16 +1,17 @@
 <script>
-  export let score
+  export let votes
+
   const upVote = () => {
-    score += 1
+    // score += 1
   }
   const downVote = () => {
-    score -= 1
+    // score -= 1
   }
 </script>
 
 <div class="score">
   <button class="icon score-up" on:click={upVote} />
-  <p>{score}</p>
+  <p>{votes.up_users.length - votes.down_users.length}</p>
   <button class="icon score-down" on:click={downVote} />
 </div>
 
