@@ -1,27 +1,53 @@
 <script>
   export let votes
+  $: score = votes.up_users.length - votes.down_users.length
   export let userID
+  export let commentID
 
-  let upButton
-  let downButton
   let voted = 0
+
+  if (votes.up_users.includes(userID)) {
+    voted = 1
+  } else if (votes.down_users.includes(userID)) {
+    voted = -1
+  }
+
   const upVote = () => {
-    // score += 1
+    if (voted === 1) {
+      return
+    }
+    if (voted === -1) {
+      return vote(0)
+    }
+    return vote(1)
   }
   const downVote = () => {
-    // score -= 1
+    if (voted === -1) {
+      return
+    }
+    if (voted === 1) {
+      return vote(0)
+    }
+    return vote(-1)
+  }
+  const vote = (vote) => {
+    fetch(`http://localhost:5555/api/v1/comments/${commentID}/vote`, {
+      method: 'PATCH',
+      body: JSON.stringify({ voted: vote }),
+      headers: { 'Content-Type': 'application/json; charset=UTF-8' },
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        votes = json
+        voted = vote
+      })
   }
 </script>
 
 <div class="score">
+  <button class="icon score-up {voted === 1 && 'upvoted'}" on:click={upVote} />
+  <p>{score}</p>
   <button
-    bind:this={upButton}
-    class="icon score-up {voted === 1 && 'upvoted'}"
-    on:click={upVote}
-  />
-  <p>{votes.up_users.length - votes.down_users.length}</p>
-  <button
-    bind:this={downButton}
     class="icon score-down {voted === -1 && 'downvoted'}"
     on:click={downVote}
   />

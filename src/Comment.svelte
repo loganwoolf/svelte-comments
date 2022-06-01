@@ -114,7 +114,7 @@
   {/if}
 
   <footer>
-    <Score votes={JSON.parse(votes)} userID={currentUser.id} />
+    <Score votes={JSON.parse(votes)} userID={currentUser.id} commentID={id} />
     {#if currentUser.username === user.username}
       <button on:click={toggleDeleteDialog} class="icon delete">
         <span>Delete</span>
