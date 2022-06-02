@@ -46,7 +46,7 @@
     margin-left: 1rem;
     border-left: 0.15rem solid var(--light);
   }
-  @media (min-width: 720px) {
+  @media screen and (min-width: 650px) {
     .replies {
       margin-left: 3.25rem;
       padding-left: 1.25rem;

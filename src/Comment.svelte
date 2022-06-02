@@ -163,6 +163,17 @@
     margin: 1rem 1rem;
     border-radius: 0.5rem;
   }
+  @media screen and (min-width: 650px) {
+    article {
+      grid-template-areas:
+        'score header controls'
+        'score content content'
+        ;
+    }
+    .score-container {
+      align-self: start;
+    }
+  }
   header {
     display: flex;
     align-items: center;
