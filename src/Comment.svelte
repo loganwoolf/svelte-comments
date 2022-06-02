@@ -2,7 +2,7 @@
   import Time from 'svelte-time'
   import ConfirmDelete from './ConfirmDelete.svelte'
   import CreateComment from './CreateComment.svelte'
-  import Score from './lib/Score.svelte'
+  import Score from './Score.svelte'
 
   export let id
   export let content
