@@ -168,6 +168,7 @@
       grid-template-areas:
         'score header controls'
         'score content content';
+      grid-template-rows: 2rem auto;
     }
     .score-container {
       align-self: start;
@@ -193,6 +194,7 @@
   }
   .content {
     grid-area: content;
+    align-self: start;
   }
   .score-container {
     grid-area: score;
