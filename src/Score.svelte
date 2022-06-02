@@ -102,7 +102,7 @@
   .negative {
     color: var(--loud);
   }
-  
+
   @media screen and (min-width: 650px) {
     div {
       grid-template-columns: unset;
@@ -110,6 +110,5 @@
       grid-auto-columns: 2.5rem;
       grid-template-rows: 2.5rem 1.25rem 2.5rem;
     }
-
   }
 </style>

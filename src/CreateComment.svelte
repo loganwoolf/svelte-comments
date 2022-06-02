@@ -70,10 +70,9 @@
     background-color: var(--white);
     border-radius: 0.5rem;
     gap: 1rem;
-    grid-template-areas: 
+    grid-template-areas:
       'text text'
-      'img button'
-    ;
+      'img button';
     align-items: center;
   }
   textarea {
@@ -109,9 +108,7 @@
   }
   @media screen and (min-width: 650px) {
     div {
-      grid-template-areas: 
-        'img text button'
-      ;
+      grid-template-areas: 'img text button';
       grid-template-columns: 2rem auto 6.5rem;
       align-items: start;
     }

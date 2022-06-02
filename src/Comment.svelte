@@ -167,8 +167,7 @@
     article {
       grid-template-areas:
         'score header controls'
-        'score content content'
-        ;
+        'score content content';
     }
     .score-container {
       align-self: start;
