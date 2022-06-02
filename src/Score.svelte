@@ -45,8 +45,11 @@
 </script>
 
 <div class="score">
-  <button class="icon score-up {voted === 1 ? 'upvoted' : 'novote'}" on:click={upVote} />
-  <p>{score}</p>
+  <button
+    class="icon score-up {voted === 1 ? 'upvoted' : 'novote'}"
+    on:click={upVote}
+  />
+  <p class={score < 0 && 'negative'}>{score}</p>
   <button
     class="icon score-down {voted === -1 ? 'downvoted' : 'novote'}"
     on:click={downVote}
@@ -96,5 +99,8 @@
     color: var(--pri);
     font-weight: 500;
     user-select: none;
+  }
+  .negative {
+    color: var(--loud);
   }
 </style>
