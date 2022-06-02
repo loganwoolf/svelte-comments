@@ -12,7 +12,7 @@ export default (query) => {
         id: 'comments.id',
         content: 'comments.content',
         createdAt: 'comments.created_at',
-        score: 'comments.score',
+        votes: 'comments.votes',
         username: 'users.username',
         image: 'users.image_png',
         replyTo: 'comments.reply_to',
@@ -63,7 +63,7 @@ export default (query) => {
             id: 'comments.id',
             content: 'comments.content',
             createdAt: 'comments.created_at',
-            score: 'comments.score',
+            votes: 'comments.votes',
             username: 'users.username',
             image: 'users.image_png',
             replyTo: 'comments.reply_to',
@@ -105,7 +105,7 @@ export default (query) => {
             id: 'comments.id',
             content: 'comments.content',
             createdAt: 'comments.created_at',
-            score: 'comments.score',
+            votes: 'comments.votes',
             username: 'users.username',
             image: 'users.image_png',
             replyTo: 'comments.reply_to',
@@ -130,6 +130,53 @@ export default (query) => {
           })
       })
       .catch((error) => console.log({ error }))
+  })
+
+  router.patch('/:id/vote', (req, res) => {
+    const voted = req.body.voted
+
+    query('comments')
+      .select('votes')
+      .where({
+        id: req.params.id,
+      })
+      .then((rows) => {
+        const json = JSON.parse(rows[0].votes)
+        const votes = {
+          up_users: new Set([...json.up_users]),
+          down_users: new Set([...json.down_users]),
+        }
+        votes.up_users.delete(currentUserID)
+        votes.down_users.delete(currentUserID)
+        if (voted === -1) {
+          votes.down_users.add(currentUserID)
+        } else if (voted === 1) {
+          votes.up_users.add(currentUserID)
+        }
+
+        votes.up_users = [...votes.up_users]
+        votes.down_users = [...votes.down_users]
+        return votes
+      })
+      .then((votes) => {
+        return query('comments')
+          .where({
+            id: req.params.id,
+          })
+          .update({ votes: JSON.stringify(votes) })
+          .then((rows) => {
+            return rows
+          })
+      })
+      .then(() => {
+        query('comments')
+          .select('votes')
+          .where({ id: req.params.id })
+          .then((rows) => {
+            let obj = JSON.parse(rows[0].votes)
+            res.json(obj)
+          })
+      })
   })
 
   router.patch('/:id', (req, res) => {

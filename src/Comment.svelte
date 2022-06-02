@@ -2,12 +2,12 @@
   import Time from 'svelte-time'
   import ConfirmDelete from './ConfirmDelete.svelte'
   import CreateComment from './CreateComment.svelte'
-  import Score from './lib/Score.svelte'
+  import Score from './Score.svelte'
 
   export let id
   export let content
   export let createdAt
-  export let score
+  export let votes
   export let user
   export let replyName = null
   export let isReply = null
@@ -114,7 +114,7 @@
   {/if}
 
   <footer>
-    <Score {score} />
+    <Score votes={JSON.parse(votes)} userID={currentUser.id} commentID={id} />
     {#if currentUser.username === user.username}
       <button on:click={toggleDeleteDialog} class="icon delete">
         <span>Delete</span>

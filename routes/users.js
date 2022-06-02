@@ -5,6 +5,7 @@ export default (query) => {
   router.get('/current', (req, res) => {
     query('users')
       .select({
+        id: 'id',
         username: 'username',
         image: 'image_png',
       })
