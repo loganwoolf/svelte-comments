@@ -45,10 +45,10 @@
 </script>
 
 <div class="score">
-  <button class="icon score-up {voted === 1 && 'upvoted'}" on:click={upVote} />
+  <button class="icon score-up {voted === 1 ? 'upvoted' : 'novote'}" on:click={upVote} />
   <p>{score}</p>
   <button
-    class="icon score-down {voted === -1 && 'downvoted'}"
+    class="icon score-down {voted === -1 ? 'downvoted' : 'novote'}"
     on:click={downVote}
   />
 </div>
@@ -83,14 +83,14 @@
     mask-position: center;
     mask-size: 25%;
   }
-  .icon:hover {
+  .novote:hover {
     background-color: var(--pri);
   }
   .upvoted {
-    background-color: green;
+    background-color: var(--pri);
   }
   .downvoted {
-    background-color: red;
+    background-color: var(--loud);
   }
   p {
     color: var(--pri);
