@@ -93,19 +93,21 @@
   </header>
 
   {#if editOpen}
-    <div class="outline">
-      {#if replyName}
-        <span class="handle">@{replyName}</span>
-      {/if}
-      <p
-        bind:textContent={newContent}
-        class="textarea"
-        contenteditable="true"
-      />
+    <div class="content editing">
+      <div class="outline">
+        {#if replyName}
+          <span class="handle">@{replyName}</span>
+        {/if}
+        <p
+          bind:textContent={newContent}
+          class="textarea"
+          contenteditable="true"
+        />
+      </div>
+      <button on:click={() => handleUpdate(id)} class="update">Update</button>
     </div>
-    <button on:click={() => handleUpdate(id)} class="update">Update</button>
   {:else}
-    <p>
+    <p class="content">
       {#if replyName}
         <span class="handle">@{replyName}</span>
       {/if}
@@ -113,8 +115,10 @@
     </p>
   {/if}
 
-  <footer>
+  <div class="score-container">
     <Score votes={JSON.parse(votes)} userID={currentUser.id} commentID={id} />
+  </div>
+  <div class="controls">
     {#if currentUser.username === user.username}
       <button on:click={toggleDeleteDialog} class="icon delete">
         <span>Delete</span>
@@ -125,7 +129,7 @@
         ><span>Reply</span></button
       >
     {/if}
-  </footer>
+  </div>
 </article>
 {#if replyOpen}
   <CreateComment
@@ -145,8 +149,13 @@
 
 <style>
   article {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-areas:
+      'header header header'
+      'content content content'
+      'score . controls';
+    grid-template-columns: auto 1fr;
+    align-items: center;
     gap: 1rem;
     line-height: 1.5;
     padding: 1rem;
@@ -158,6 +167,7 @@
     display: flex;
     align-items: center;
     gap: 1rem;
+    grid-area: header;
   }
   header img {
     height: 32px;
@@ -170,6 +180,17 @@
     margin-left: -0.5rem;
     border-radius: 0.2rem;
     padding: 0rem 0.5rem 0.1rem;
+  }
+  .content {
+    grid-area: content;
+  }
+  .score-container {
+    grid-area: score;
+  }
+  .controls {
+    display: flex;
+    grid-area: controls;
+    margin-left: auto;
   }
   h2,
   p {
@@ -187,11 +208,6 @@
     color: var(--pri);
     font-weight: 500;
     opacity: unset;
-  }
-  footer {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
   }
   .icon {
     display: inline-flex;
@@ -234,11 +250,17 @@
   button:hover {
     opacity: 0.4;
   }
+  .editing {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
   .outline {
     /* Apply only when editing text */
     border: 1px solid var(--light);
     border-radius: 0.5rem;
     padding: 0.5rem 1rem;
+    display: grid;
   }
   .update {
     background-color: var(--pri);

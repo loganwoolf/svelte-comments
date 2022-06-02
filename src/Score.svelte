@@ -65,7 +65,6 @@
     align-items: center;
     background-color: var(--lighter);
     border-radius: 0.5rem;
-    margin-right: auto;
   }
   button {
     width: 100%;
