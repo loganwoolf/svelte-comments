@@ -109,8 +109,11 @@
   }
   @media screen and (min-width: 650px) {
     div {
-      display: flex;
-      flex-direction: row;
+      grid-template-areas: 
+        'img text button'
+      ;
+      grid-template-columns: 2rem auto 6.5rem;
+      align-items: start;
     }
   }
 </style>
