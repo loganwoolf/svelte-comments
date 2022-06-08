@@ -31,7 +31,7 @@
     return vote(-1)
   }
   const vote = (vote) => {
-    fetch(`http://localhost:5555/api/v1/comments/${commentID}/vote`, {
+    fetch(`/api/v1/comments/${commentID}/vote`, {
       method: 'PATCH',
       body: JSON.stringify({ voted: vote }),
       headers: { 'Content-Type': 'application/json; charset=UTF-8' },

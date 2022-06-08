@@ -47,7 +47,7 @@
   }
 
   const deleteComment = (id) => {
-    fetch(`http://localhost:5555/api/v1/comments/${id}`, {
+    fetch(`/api/v1/comments/${id}`, {
       method: 'DELETE',
     })
       .then((response) => response.json())
@@ -65,7 +65,7 @@
 
   const handleUpdate = (id) => {
     const payload = { content: newContent }
-    fetch(`http://localhost:5555/api/v1/comments/${id}`, {
+    fetch(`/api/v1/comments/${id}`, {
       method: 'PATCH',
       body: JSON.stringify(payload),
       headers: { 'Content-type': 'application/json; charset=UTF-8' },

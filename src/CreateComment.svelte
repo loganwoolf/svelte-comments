@@ -11,7 +11,7 @@
     const newComment = {
       content: text,
     }
-    fetch('http://localhost:5555/api/v1/comments', {
+    fetch('/api/v1/comments', {
       method: 'POST',
       body: JSON.stringify(newComment),
       headers: { 'Content-type': 'application/json; charset=UTF-8' },
@@ -30,7 +30,7 @@
       replyName: replyingToName,
     }
 
-    fetch(`http://localhost:5555/api/v1/comments/${replyingToID}`, {
+    fetch(`/api/v1/comments/${replyingToID}`, {
       method: 'POST',
       body: JSON.stringify(newReply),
       headers: { 'Content-type': 'application/json; charset=UTF-8' },
