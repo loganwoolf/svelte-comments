@@ -59,13 +59,12 @@
 <style>
   div {
     display: grid;
-    grid-template-columns: 2.5rem 1rem 2.5rem;
+    grid-template-columns: 2.5rem 1.25rem 2.5rem;
     grid-auto-rows: 2.5rem;
     justify-items: center;
     align-items: center;
     background-color: var(--lighter);
     border-radius: 0.5rem;
-    margin-right: auto;
   }
   button {
     width: 100%;
@@ -102,5 +101,14 @@
   }
   .negative {
     color: var(--loud);
+  }
+
+  @media screen and (min-width: 650px) {
+    div {
+      grid-template-columns: unset;
+      grid-auto-rows: unset;
+      grid-auto-columns: 2.5rem;
+      grid-template-rows: 2.5rem 1.25rem 2.5rem;
+    }
   }
 </style>

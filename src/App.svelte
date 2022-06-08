@@ -24,7 +24,13 @@
     {#if comment.replies.length}
       <div class="replies" data-reply-to-id={comment.id}>
         {#each comment.replies as reply}
-          <Comment {...reply} parentID={comment.id} {currentUser} bind:comments isReply />
+          <Comment
+            {...reply}
+            parentID={comment.id}
+            {currentUser}
+            bind:comments
+            isReply
+          />
         {/each}
       </div>
     {/if}
@@ -45,5 +51,11 @@
   .replies {
     margin-left: 1rem;
     border-left: 0.15rem solid var(--light);
+  }
+  @media screen and (min-width: 650px) {
+    .replies {
+      margin-left: 3.25rem;
+      padding-left: 1.25rem;
+    }
   }
 </style>

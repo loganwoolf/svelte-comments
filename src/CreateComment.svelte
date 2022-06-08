@@ -51,25 +51,29 @@
 
 <div>
   <textarea bind:value={commentText} placeholder="Add a comment..." />
-  <footer>
-    <img src={currentUser.image} alt="" />
-    <button
-      on:click={() => {
-        handleClick(commentText)
-        commentText = ''
-      }}
-    >
-      {replyingToID ? 'Reply' : 'Send'}
-    </button>
-  </footer>
+  <img src={currentUser.image} alt="" />
+  <button
+    on:click={() => {
+      handleClick(commentText)
+      commentText = ''
+    }}
+  >
+    {replyingToID ? 'Reply' : 'Send'}
+  </button>
 </div>
 
 <style>
   div {
+    display: grid;
     margin: 1rem;
     padding: 1rem;
     background-color: var(--white);
     border-radius: 0.5rem;
+    gap: 1rem;
+    grid-template-areas:
+      'text text'
+      'img button';
+    align-items: center;
   }
   textarea {
     border: 1px solid var(--light);
@@ -78,15 +82,12 @@
     height: 5rem;
     width: calc(100% - 2.8rem);
     resize: none;
-  }
-  footer {
-    display: flex;
-    align-items: center;
-    margin-top: 0.8rem;
+    grid-area: text;
   }
   img {
     height: 2rem;
     margin-right: auto;
+    grid-area: img;
   }
   button {
     text-transform: uppercase;
@@ -99,8 +100,17 @@
     font-weight: 500;
     border-radius: 0.5rem;
     cursor: pointer;
+    grid-area: button;
+    justify-self: end;
   }
   button:hover {
     opacity: 0.4;
+  }
+  @media screen and (min-width: 650px) {
+    div {
+      grid-template-areas: 'img text button';
+      grid-template-columns: 2rem auto 6.5rem;
+      align-items: start;
+    }
   }
 </style>

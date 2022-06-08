@@ -25,7 +25,7 @@
     height: 100%;
     width: 100%;
     background: hsla(0, 100%, 0%, 0.4);
-
+    z-index: 1;
     display: grid;
     place-items: center;
   }
