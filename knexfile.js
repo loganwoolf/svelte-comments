@@ -42,7 +42,12 @@ export default {
       max: 10,
     },
     migrations: {
+      directory: './db/migrations',
       tableName: 'knex_migrations',
     },
+    seeds: {
+      directory: './db/seeds',
+    },
+    useNullAsDefault: true,
   },
 }
