@@ -56,4 +56,7 @@ export async function seed(knex) {
       votes: JSON.stringify({ up_users: [21], down_users: [61, 62, 63] }),
     },
   ])
+
+  // set auto incrementing in Postgres after seed
+  await knex.raw('select setval(\'comments_id_seq\', max(id)) from comments')
 }

@@ -27,4 +27,7 @@ export async function seed(knex) {
       image_png: './images/avatars/image-juliusomo.png',
     },
   ])
+
+  // set auto incrementing in Postgres after seed
+  await knex.raw('select setval(\'users_id_seq\', max(id)) from users')
 }
