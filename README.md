@@ -1,48 +1,83 @@
-# Svelte + Vite
+# Frontend Mentor - Interactive comments section solution
 
-This template should help get you started developing with Svelte in Vite.
+This is a solution to the [Interactive comments section challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/interactive-comments-section-iG1RugEG9). Frontend Mentor challenges help you improve your coding skills by building realistic projects. 
 
-## Recommended IDE Setup
+## Table of contents
 
-[VS Code](https://code.visualstudio.com/) + [Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode).
+- [Overview](#overview)
+  - [The challenge](#the-challenge)
+  - [Screenshot](#screenshot)
+  - [Links](#links)
+- [My process](#my-process)
+  - [Built with](#built-with)
+  - [What I learned](#what-i-learned)
+  - [Useful resources](#useful-resources)
+- [Author](#author)
 
-## Need an official Svelte framework?
+## Overview
 
-Check out [SvelteKit](https://github.com/sveltejs/kit#readme), which is also powered by Vite. Deploy anywhere with its serverless-first approach and adapt to various platforms, with out of the box support for TypeScript, SCSS, and Less, and easily-added support for mdsvex, GraphQL, PostCSS, Tailwind CSS, and more.
+### The challenge
 
-## Technical considerations
+Users should be able to:
 
-**Why use this over SvelteKit?**
+- View the optimal layout for the app depending on their device's screen size
+- See hover states for all interactive elements on the page
+- Create, Read, Update, and Delete comments and replies
+- Upvote and downvote comments
+- **Bonus**: If you're building a purely front-end project, use `localStorage` to save the current state in the browser that persists when the browser is refreshed.
+- **Bonus**: Instead of using the `createdAt` strings from the `data.json` file, try using timestamps and dynamically track the time since the comment or reply was posted.
 
-- It brings its own routing solution which might not be preferable for some users.
-- It is first and foremost a framework that just happens to use Vite under the hood, not a Vite app.
-  `vite dev` and `vite build` wouldn't work in a SvelteKit environment, for example.
+### Screenshot
 
-This template contains as little as possible to get started with Vite + Svelte, while taking into account the developer experience with regards to HMR and intellisense. It demonstrates capabilities on par with the other `create-vite` templates and is a good starting point for beginners dipping their toes into a Vite + Svelte project.
+![Desktop View](./screens/desktop.jpeg)
+![Replying on Desktop](./screens/desktop-reply.jpeg)
+![Editing on Mobile](./screens/mobile-edit.jpeg)
+![Deleting on Mobile](./screens/mobile-delete.jpeg)
 
-Should you later need the extended capabilities and extensibility provided by SvelteKit, the template has been structured similarly to SvelteKit so that it is easy to migrate.
+Add a screenshot of your solution. The easiest way to do this is to use Firefox to view your project, right-click the page and select "Take a Screenshot". You can choose either a full-height screenshot or a cropped one based on how long the page is. If it's very long, it might be best to crop it.
 
-**Why `global.d.ts` instead of `compilerOptions.types` inside `jsconfig.json` or `tsconfig.json`?**
+Alternatively, you can use a tool like [FireShot](https://getfireshot.com/) to take the screenshot. FireShot has a free option, so you don't need to purchase it. 
 
-Setting `compilerOptions.types` shuts out all other types not explicitly listed in the configuration. Using triple-slash references keeps the default TypeScript setting of accepting type information from the entire workspace, while also adding `svelte` and `vite/client` type information.
+Then crop/optimize/edit your image however you like, add it to your project, and update the file path in the image above.
 
-**Why include `.vscode/extensions.json`?**
+**Note: Delete this note and the paragraphs above when you add your screenshot. If you prefer not to add a screenshot, feel free to remove this entire section.**
 
-Other templates indirectly recommend extensions via the README, but this file allows VS Code to prompt the user to install the recommended extension upon opening the project.
+### Links
 
-**Why enable `checkJs` in the JS template?**
+- Solution URL: [Add solution URL here](https://your-solution-url.com)
+- Live Site URL: [https://fm-comments.herokuapp.com/](https://fm-comments.herokuapp.com/)
 
-It is likely that most cases of changing variable types in runtime are likely to be accidental, rather than deliberate. This provides advanced typechecking out of the box. Should you like to take advantage of the dynamically-typed nature of JavaScript, it is trivial to change the configuration.
+## My process
 
-**Why is HMR not preserving my local component state?**
+### Built with
 
-HMR state preservation comes with a number of gotchas! It has been disabled by default in both `svelte-hmr` and `@sveltejs/vite-plugin-svelte` due to its often surprising behavior. You can read the details [here](https://github.com/rixo/svelte-hmr#svelte-hmr).
+- [Svelte](https://svelte.dev/) - Frontend library
+- [Vite](https://vitejs.dev/) - Bundler and development server
+- [Knex](http://knexjs.org) - SQL query builder
+- [Express](https://expressjs.com/) - Node server framework
+- [PostgreSQL](https://postgresql.org) - Database
+- [Heroku](https://heroku.com) - Hosting platform
 
-If you have state that's important to retain within a component, consider creating an external store which would not be replaced by HMR.
+### What I learned
 
-```js
-// store.js
-// An extremely simple external store
-import { writable } from 'svelte/store'
-export default writable(0)
-```
+- Vite templates to get started with library of choice
+- How to make your project use ESModules
+- How to set up an sqlite3 database
+- How to set up Knex to create (somewhat) DB agnostic queries
+- Svelte
+- Cors
+- Body Parser not needed in Express anymore
+- Static routes in Express
+- Heroku deployment (do you ever really know this?)
+
+### Useful resources
+
+- [Mask to change svg color on hover](https://css-tricks.com/change-color-of-svg-on-hover/#aa-use-a-mask-instead-of-a-background-image) - Change svg color on hover without using it inline. Required some tweaks from the example.
+- [Getting set up with Knex](https://blog.shahednasser.com/knex-js-tutorial-for-beginners/) - Very descriptive tutorial that needed to be adapted for ESModules.
+- [Cross Reference setting up Knex](https://gist.github.com/EstebanBorai/49f4501aa23dd666ae57b32bafeb768c) - Used information here to verify and see a second perspective.
+
+## Author
+
+- Website - [loganwoolf.github.io](https://loganwoolf.github.io/)
+- Frontend Mentor - [@loganwoolf](https://www.frontendmentor.io/profile/loganwoolf)
+- Twitter - [@logan__woolf](https://www.twitter.com/logan__woolf)
