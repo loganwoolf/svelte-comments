@@ -87,7 +87,7 @@
       <Time
         relative
         live={10000}
-        timestamp={new Date(createdAt.replace(' ', 'T') + 'Z')}
+        timestamp={new Date(createdAt)}
       />
     </p>
   </header>
@@ -116,7 +116,7 @@
   {/if}
 
   <div class="score-container">
-    <Score votes={votes} userID={currentUser.id} commentID={id} />
+    <Score {votes} userID={currentUser.id} commentID={id} />
   </div>
   <div class="controls">
     {#if currentUser.username === user.username}
