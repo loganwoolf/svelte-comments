@@ -141,10 +141,10 @@ export default (query) => {
         id: req.params.id,
       })
       .then((rows) => {
-        const json = JSON.parse(rows[0].votes)
+        const obj = rows[0].votes
         const votes = {
-          up_users: new Set([...json.up_users]),
-          down_users: new Set([...json.down_users]),
+          up_users: new Set([...obj.up_users]),
+          down_users: new Set([...obj.down_users]),
         }
         votes.up_users.delete(currentUserID)
         votes.down_users.delete(currentUserID)
@@ -173,7 +173,7 @@ export default (query) => {
           .select('votes')
           .where({ id: req.params.id })
           .then((rows) => {
-            let obj = JSON.parse(rows[0].votes)
+            let obj = rows[0].votes
             res.json(obj)
           })
       })
