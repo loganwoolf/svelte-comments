@@ -10,7 +10,8 @@ const port = process.env.PORT
 app.use(cors())
 app.use(morgan('dev'))
 app.use(express.json()) // replaces body-parser
-app.use(express.static('dist'))
+app.use(express.static('dist')) // serves dist folder on /
+app.use('/images', express.static('images')) // serves images folder on /images
 
 import commentRoutes from './routes/comments.js'
 app.use('/api/v1/comments', commentRoutes(query))
