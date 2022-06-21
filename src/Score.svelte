@@ -74,9 +74,11 @@
   }
   .score-up {
     mask: url(/images/icon-plus.svg);
+    -webkit-mask: url(/images/icon-plus.svg);
   }
   .score-down {
     mask: url(/images/icon-minus.svg);
+    -webkit-mask: url(/images/icon-minus.svg);
   }
   .icon {
     display: inline-block;
@@ -84,6 +86,9 @@
     mask-repeat: no-repeat;
     mask-position: center;
     mask-size: 25%;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    -webkit-mask-size: 25%;
   }
   .novote:hover {
     background-color: var(--pri);
