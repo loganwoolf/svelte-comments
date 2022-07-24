@@ -29,6 +29,7 @@ dist-ssr
 
 # Environment
 .env*
+!.env.example
 
 # Database
 *.sqlite*
